@@ -17,6 +17,7 @@ interface Outfit {
   harga: number;
   skor: number;
   gambar: string;
+  link: string; 
   normalisasi: {
     harga: number;
     kenyamanan: number;
@@ -115,6 +116,19 @@ export default function HasilPage() {
                   <p className="text-sm">
                     Ranking: <b>{i + 1}</b>
                   </p>
+                  {/* TOMBOL LIHAT TOKO */}
+          {o.link && (
+            <a
+              href={o.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
+              <Button size="sm" className="flex items-center gap-2">
+                🛍️ Lihat Toko
+              </Button>
+            </a>
+          )}
                 </div>
               </CardContent>
             </Card>

@@ -99,6 +99,7 @@ perhitungan[key] = nilaiNormalisasi * k.bobot;
   warna: o.warna,
   bahan: o.bahan,
   gaya: o.gaya,
+  link: o.link,
   skor: total,
   normalisasi,
   perhitungan,

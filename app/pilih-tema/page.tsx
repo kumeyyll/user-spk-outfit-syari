@@ -60,10 +60,18 @@ export default function PilihTemaPage() {
                   className="w-full mt-2 rounded-md border border-border bg-background px-3 py-2"
                 >
                   <option value="">Pilih warna</option>
+                  <option value="Hijau">Hijau</option>
                   <option value="Hitam">Hitam</option>
-                  <option value="Putih">Putih</option>
-                  <option value="Cream">Cream</option>
+                  <option value="Pink">Pink</option>
+                  <option value="Orange">Orange</option>
                   <option value="Coklat">Coklat</option>
+                  <option value="Maroon">Maroon</option>
+                  <option value="Putih">Putih</option>
+                  <option value="Navy">Navy</option>
+                  <option value="Biru">Biru</option>
+                  <option value="Abu-abu">Abu-abu</option>
+                  <option value="Ungu">Ungu</option>
+                  <option value="Cream">Cream</option>
                 </select>
               </div>
 
@@ -77,8 +85,10 @@ export default function PilihTemaPage() {
                 >
                   <option value="">Pilih bahan</option>
                   <option value="Katun">Katun</option>
-                  <option value="Linen">Linen</option>
-                  <option value="Satin">Satin</option>
+                  <option value="Rayon">Rayon</option>
+                  <option value="Silk">Silk</option>
+                  <option value="Ceruty">Ceruty</option>
+                  <option value="Polyester">Polyester</option>
                 </select>
               </div>
 
@@ -92,8 +102,8 @@ export default function PilihTemaPage() {
                 >
                   <option value="">Pilih gaya</option>
                   <option value="Formal">Formal</option>
-                  <option value="Kasual">Kasual</option>
                   <option value="Pesta">Pesta</option>
+                  <option value="Daily">Daily</option>
                 </select>
               </div>
 
