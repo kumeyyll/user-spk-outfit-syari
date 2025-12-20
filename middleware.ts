@@ -8,9 +8,9 @@ export function middleware(request: NextRequest) {
   const isPublicPath = publicPaths.includes(pathname)
 
   // If user is not authenticated and trying to access protected route
-  if (!token && !isPublicPath) {
-    return NextResponse.redirect(new URL("/login", request.url))
-  }
+  // if (!token && !isPublicPath) {
+  //   return NextResponse.redirect(new URL("/login", request.url))
+  // }
 
   // If user is authenticated and trying to access login page, redirect to pilih-tema
   if (token && pathname === "/login") {

@@ -14,7 +14,7 @@ export default function HomePage() {
               <Sparkles className="h-6 w-6 text-primary" />
               <span className="text-xl font-bold text-foreground">NyariOutfit</span>
             </div>
-            <div className="flex items-center gap-6">
+            {/* <div className="flex items-center gap-6">
               <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
                 Tentang
               </Link>
@@ -23,7 +23,7 @@ export default function HomePage() {
                   Masuk
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>
@@ -142,7 +142,7 @@ export default function HomePage() {
               <Sparkles className="h-5 w-5 text-primary" />
               <span className="font-semibold">NyariOutfit</span>
             </div>
-            <div className="flex gap-6 text-sm text-muted-foreground">
+            {/* <div className="flex gap-6 text-sm text-muted-foreground">
               <Link href="/about" className="hover:text-foreground transition-colors">
                 Tentang
               </Link>
@@ -152,7 +152,7 @@ export default function HomePage() {
               <Link href="/privasi" className="hover:text-foreground transition-colors">
                 Privasi
               </Link>
-            </div>
+            </div> */}
           </div>
           <div className="mt-4 pt-4 border-t border-border text-center text-sm text-muted-foreground">
             © 2025 NyariOutfit. Sistem Pendukung Keputusan Rekomendasi Outfit Syar'i.
