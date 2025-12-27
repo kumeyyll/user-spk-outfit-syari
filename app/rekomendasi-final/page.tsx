@@ -342,7 +342,7 @@ export default function RekomendasiFinalPage() {
               </Link>
               <div className="flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold text-foreground">NyariOutfit</span>
+                <span className="text-xl font-bold text-foreground">NyariGamis</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -358,9 +358,9 @@ export default function RekomendasiFinalPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2">Rekomendasi Outfit Terbaik Untukmu! 🎉</h1>
+          <h1 className="text-3xl font-bold mb-2">Rekomendasi Gamis Terbaik Untukmu! 🎉</h1>
           <p className="text-muted-foreground text-lg">
-            Berdasarkan pilihan tema, warna, dan bahan yang kamu pilih, ini dia outfit syar'i terbaik yang cocok untukmu
+            Berdasarkan pilihan tema, warna, dan bahan yang kamu pilih, ini dia gamis terbaik yang cocok untukmu
           </p>
         </div>
 
@@ -398,15 +398,15 @@ export default function RekomendasiFinalPage() {
 
         {/* Recommended Outfits */}
         <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-6">Outfit Rekomendasi ({recommendedOutfits.length} pilihan)</h2>
+          <h2 className="text-2xl font-bold mb-6">Gamis Rekomendasi ({recommendedOutfits.length} pilihan)</h2>
 
           {recommendedOutfits.length === 0 ? (
             <Card className="text-center py-12">
               <CardContent>
                 <div className="text-6xl mb-4">😔</div>
-                <h3 className="text-xl font-semibold mb-2">Belum Ada Outfit yang Cocok</h3>
+                <h3 className="text-xl font-semibold mb-2">Belum Ada Gamis yang Cocok</h3>
                 <p className="text-muted-foreground mb-4">
-                  Maaf, belum ada outfit yang sesuai dengan preferensi kamu. Coba ubah pilihan atau pilih "Fleksibel"
+                  Maaf, belum ada gamis yang sesuai dengan preferensi kamu. Coba ubah pilihan atau pilih "Fleksibel"
                   untuk bahan.
                 </p>
                 <Link href="/pilih-tema">

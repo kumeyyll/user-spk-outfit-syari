@@ -54,7 +54,7 @@ export default function HasilPage() {
                 Kembali
               </Link>
             <Sparkles className="h-6 w-6 text-primary" />
-            <span className="font-bold text-xl">NyariOutfit</span>
+            <span className="font-bold text-xl">NyariGamis</span>
           </div>
           <Link href="/">
             <Button variant="outline" size="sm">Beranda</Button>
@@ -66,11 +66,11 @@ export default function HasilPage() {
 
         {/* JUDUL */}
         <h1 className="text-3xl font-bold text-center mb-4">
-          🎉 Rekomendasi Outfit Terbaik
+          🎉 Rekomendasi Gamis Terbaik
         </h1>
 
         <p className="text-center text-muted-foreground mb-10">
-          Rekomendasi dihasilkan menggunakan metode{" "}<b>Simple Additive Weighting (SAW)</b> berdasarkan kriteria Harga, Kenyamanan, Kesesuaian, Acara, dan Kualitas Bahan.
+          Rekomendasi dihasilkan menggunakan metode{" "}<b>Simple Additive Weighting (SAW)</b> berdasarkan kriteria Harga, Kenyamanan, Kesesuaian Acara, dan Kualitas Bahan.
         </p>
 
         {/* LOADING */}
@@ -83,7 +83,7 @@ export default function HasilPage() {
         {/* TIDAK ADA DATA */}
         {!loading && data.length === 0 && (
           <p className="text-center text-muted-foreground">
-            <b><i>Outfit dengan kombinasi tersebut belum tersedia.  
+            <b><i>Gamis dengan kombinasi tersebut belum tersedia.  
             Silakan pilih warna, bahan, atau gaya lain.</i></b>
           </p>
         )}

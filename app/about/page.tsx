@@ -50,7 +50,7 @@ export default function AboutPage() {
               <div className="flex items-center gap-2">
                 <Sparkles className="h-6 w-6 text-[#E8B4B8]" />
                 <span className="text-xl font-bold text-[#5C3D3D]">
-                  NyariOutfit
+                  NyariGamis
                 </span>
               </div>
             </div>

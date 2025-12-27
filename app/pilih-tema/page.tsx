@@ -28,7 +28,7 @@ export default function PilihTemaPage() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="h-6 w-6 text-primary" />
-            <span className="font-bold text-xl">NyariOutfit</span>
+            <span className="font-bold text-xl">NyariGamis</span>
           </div>
           <Link href="/">
             <Button variant="outline" size="sm">Beranda</Button>
@@ -43,17 +43,17 @@ export default function PilihTemaPage() {
             <div className="text-center mb-8">
               <Shirt className="h-10 w-10 mx-auto text-primary mb-3" />
               <h1 className="text-3xl font-bold mb-2">
-                Pilih Preferensi Outfit
+                Pilih Preferensi Gamis
               </h1>
               <p className="text-muted-foreground">
-                Sesuaikan outfit syar’i dengan kebutuhan dan gayamu
+                Sesuaikan gamis dengan kebutuhan dan gayamu
               </p>
             </div>
 
             <div className="space-y-6">
               {/* Warna */}
               <div>
-                <label className="text-sm font-medium">Warna Outfit</label>
+                <label className="text-sm font-medium">Warna Gamis</label>
                 <select
                   value={warna}
                   onChange={(e) => setWarna(e.target.value)}

@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "NyariOutfit 💕",
+  title: "NyariGamis 💕",
   description: "Temukan Outfit Syar'i terbaik dengan sistem rekomendasi cerdas.",
   generator: "v0.app",
 };

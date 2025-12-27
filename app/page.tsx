@@ -12,7 +12,7 @@ export default function HomePage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
               <Sparkles className="h-6 w-6 text-primary" />
-              <span className="text-xl font-bold text-foreground">NyariOutfit</span>
+              <span className="text-xl font-bold text-foreground">NyariGamis</span>
             </div>
             {/* <div className="flex items-center gap-6">
               <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -39,19 +39,19 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-balance mb-6">
-            Temukan Outfit Syar'i
+            Temukan Gamis 
             <span className="text-primary"> Terbaik</span> Untukmu
           </h1>
 
           <p className="text-xl text-muted-foreground text-pretty mb-8 max-w-2xl mx-auto">
-            Biar makin percaya diri dengan outfit syar'i yang sesuai gaya & kebutuhanmu. Sistem kami menggunakan metode
+            Biar makin percaya diri dengan gamis yang sesuai gaya & kebutuhanmu. Sistem kami menggunakan metode
             SAW untuk rekomendasi terpersonalisasi.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link href="/pilih-tema">
               <Button size="lg" className="text-lg px-8 py-6">
-                Mulai Pilih Outfit
+                Mulai Pilih Gamis
               </Button>
             </Link>
           </div>
@@ -62,9 +62,9 @@ export default function HomePage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Kenapa Pilih NyariOutfit?</h2>
+            <h2 className="text-3xl font-bold mb-4">Kenapa Pilih NyariGamis?</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Platform rekomendasi outfit syar'i pertama yang menggunakan teknologi AI untuk memberikan saran terbaik
+              Platform rekomendasi gamis syar'i pertama yang menggunakan teknologi AI untuk memberikan saran terbaik
             </p>
           </div>
 
@@ -78,7 +78,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Rekomendasi Personal</h3>
                 <p className="text-muted-foreground">
-                  Sistem kami mempertimbangkan tone kulit, acara, dan preferensi cuaca untuk memberikan rekomendasi yang
+                  Sistem kami mempertimbangkan Warna, Bahan, dan Gaya untuk memberikan rekomendasi yang
                   tepat
                 </p>
               </CardContent>
@@ -120,9 +120,9 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto text-center">
           <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20">
             <CardContent className="p-12">
-              <h2 className="text-3xl font-bold mb-4">Siap Menemukan Outfit Impianmu?</h2>
+              <h2 className="text-3xl font-bold mb-4">Siap Menemukan Gamis Impianmu?</h2>
               <p className="text-muted-foreground text-lg mb-8">
-                Mulai perjalananmu untuk menemukan outfit syar'i yang sempurna dalam 3 langkah mudah
+                Mulai perjalananmu untuk menemukan Gamis yang sempurna dalam 3 langkah mudah
               </p>
               <Link href="/pilih-tema">
                 <Button size="lg" className="text-lg px-8 py-6">
@@ -140,7 +140,7 @@ export default function HomePage() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center gap-2 mb-4 md:mb-0">
               <Sparkles className="h-5 w-5 text-primary" />
-              <span className="font-semibold">NyariOutfit</span>
+              <span className="font-semibold">NyariGamis</span>
             </div>
             {/* <div className="flex gap-6 text-sm text-muted-foreground">
               <Link href="/about" className="hover:text-foreground transition-colors">
@@ -155,7 +155,7 @@ export default function HomePage() {
             </div> */}
           </div>
           <div className="mt-4 pt-4 border-t border-border text-center text-sm text-muted-foreground">
-            © 2025 NyariOutfit. Sistem Pendukung Keputusan Rekomendasi Outfit Syar'i.
+            © 2025 NyariGamis. Sistem Pendukung Keputusan Rekomendasi Gamis .
           </div>
         </div>
       </footer>
