@@ -22,7 +22,7 @@ export default function HasilRekomendasi() {
   return (
     <div className="min-h-screen px-6 py-10 bg-background">
       <h1 className="text-3xl font-bold mb-6 text-center">
-        Hasil Rekomendasi Outfit
+        Hasil Rekomendasi Gamis
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6">

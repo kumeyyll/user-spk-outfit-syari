@@ -61,7 +61,7 @@ export default function AboutPage() {
                 onClick={handleMulai}
                 className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-[#E8B4B8] to-[#FADADD] text-white px-4 py-2 rounded-full shadow-md hover:scale-[1.02] transition"
               >
-                Mulai Pilih Outfit
+                Mulai Pilih Gamis
               </button>
 
               <button
@@ -79,11 +79,11 @@ export default function AboutPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4">
-            Temukan Outfit Syar'i{" "}
+            Temukan Gamis{" "}
             <span className="text-[#E8B4B8]">Terbaik</span> Untukmu
           </h1>
           <p className="text-lg text-[#6f5c5c] max-w-3xl mx-auto">
-            NyariOutfit membantu muslimah menemukan outfit syar'i yang tepat
+            NyariGamis membantu muslimah menemukan gamis yang tepat
             sesuai preferensi. Sistem menggunakan metode SAW untuk rekomendasi
             yang terukur dan personal.
           </p>
