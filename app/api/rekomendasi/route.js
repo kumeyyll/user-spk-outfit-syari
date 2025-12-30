@@ -1,15 +1,10 @@
 import { NextResponse } from "next/server";
-import mysql from "mysql2/promise";
+import { createClient } from "@supabase/supabase-js";
 
-const pool = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "spk_outfit_syari",
-});
-
-const ADMIN_BASE_URL = "http://localhost:3001";
-
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
@@ -17,29 +12,32 @@ export async function GET(request) {
   const bahan = searchParams.get("bahan");
   const gaya = searchParams.get("gaya");
 
-  const conn = await pool.getConnection();
+  const STORAGE_URL =
+  "https://fdazwileicpofehanhbd.supabase.co/storage/v1/object/public/outfit-images/";
 
-  // 1️⃣ FILTER OUTFIT
-  const [outfits] = await conn.query(
-    `SELECT * FROM outfit 
-     WHERE warna = ? AND bahan = ? AND gaya = ?`,
-    [warna, bahan, gaya]
-  );
+  /* 1️⃣ FILTER OUTFIT */
+  const { data: outfits } = await supabase
+    .from("outfit")
+    .select("*")
+    .eq("warna", warna)
+    .eq("bahan", bahan)
+    .eq("gaya", gaya);
 
-  if (outfits.length === 0) {
-    conn.release();
+  if (!outfits || outfits.length === 0) {
     return NextResponse.json({ data: [] });
   }
 
-  // 2️⃣ AMBIL KRITERIA
-  const [kriteria] = await conn.query("SELECT * FROM kriteria");
+  /* 2️⃣ AMBIL KRITERIA */
+  const { data: kriteria } = await supabase
+    .from("kriteria")
+    .select("*");
 
-  // 3️⃣ AMBIL NILAI OUTFIT
-  const [nilai] = await conn.query(`
-    SELECT * FROM nilai_outfit
-  `);
+  /* 3️⃣ AMBIL NILAI */
+  const { data: nilai } = await supabase
+    .from("nilai_outfit")
+    .select("*");
 
-  // 4️⃣ HITUNG MAX & MIN
+  /* 4️⃣ HITUNG MAX & MIN */
   const pembagi = {};
   kriteria.forEach(k => {
     const values = nilai
@@ -51,69 +49,62 @@ export async function GET(request) {
       min: Math.min(...values),
       tipe: k.tipe,
       bobot: k.bobot,
+      nama: k.nama_kriteria,
     };
   });
 
-  // 5️⃣ HITUNG SAW + SIMPAN NORMALISASI
-const hasil = outfits.map(o => {
-  let total = 0;
-  const normalisasi = {};
-  const perhitungan = {};
+  /* 5️⃣ HITUNG SAW */
+  const hasil = outfits.map(o => {
+    let total = 0;
+    const normalisasi = {};
+    const perhitungan = {};
 
-  kriteria.forEach(k => {
-    const n = nilai.find(
-      x => x.id_outfit === o.id_outfit && x.id_kriteria === k.id_kriteria
-    );
+    kriteria.forEach(k => {
+      const n = nilai.find(
+        x =>
+          x.id_outfit === o.id_outfit &&
+          x.id_kriteria === k.id_kriteria
+      );
 
-    if (!n) return;
+      if (!n) return;
 
-    let nilaiNormalisasi = 0;
-    if (k.tipe === "benefit") {
-      nilaiNormalisasi = n.nilai / pembagi[k.id_kriteria].max;
-    } else {
-      nilaiNormalisasi = pembagi[k.id_kriteria].min / n.nilai;
-    }
+      let nilaiNormalisasi = 0;
+      if (k.tipe === "benefit") {
+        nilaiNormalisasi = n.nilai / pembagi[k.id_kriteria].max;
+      } else {
+        nilaiNormalisasi = pembagi[k.id_kriteria].min / n.nilai;
+      }
 
-    // normalisasi[k.nama_kriteria] = nilaiNormalisasi;
-    // perhitungan[k.nama_kriteria] = nilaiNormalisasi * k.bobot;
+      let key = "";
+      if (k.nama_kriteria === "Harga") key = "harga";
+      if (k.nama_kriteria === "Kenyamanan") key = "kenyamanan";
+      if (k.nama_kriteria === "Kesesuaian Acara") key = "kesesuaian";
+      if (k.nama_kriteria === "Kualitas Bahan") key = "kualitas";
 
-    let key = "";
+      normalisasi[key] = nilaiNormalisasi;
+      perhitungan[key] = nilaiNormalisasi * k.bobot;
 
-if (k.nama_kriteria === "Harga") key = "harga";
-if (k.nama_kriteria === "Kenyamanan") key = "kenyamanan";
-if (k.nama_kriteria === "Kesesuaian Acara") key = "kesesuaian";
-if (k.nama_kriteria === "Kualitas Bahan") key = "kualitas";
+      total += nilaiNormalisasi * k.bobot;
+    });
 
-normalisasi[key] = nilaiNormalisasi;
-perhitungan[key] = nilaiNormalisasi * k.bobot;
-
-
-
-    total += nilaiNormalisasi * k.bobot;
+    return {
+      id_outfit: o.id_outfit,
+      nama_outfit: o.nama_outfit,
+      harga: o.harga,
+      warna: o.warna,
+      bahan: o.bahan,
+      gaya: o.gaya,
+      skor: total,
+      normalisasi,
+      perhitungan,
+      gambar: o.gambar
+    ? `${STORAGE_URL}${o.gambar}`
+    : null,
+    };
   });
 
-  return {
-  id_outfit: o.id_outfit,
-  nama_outfit: o.nama_outfit,
-  harga: o.harga,
-  warna: o.warna,
-  bahan: o.bahan,
-  gaya: o.gaya,
-  link: o.link,
-  skor: total,
-  normalisasi,
-  perhitungan,
-  gambar: o.gambar
-    ? `${ADMIN_BASE_URL}/uploads/${o.gambar}`
-    : null,
-};
-
-});
-
-
-  // 6️⃣ RANKING
+  /* 6️⃣ RANKING */
   hasil.sort((a, b) => b.skor - a.skor);
 
-  conn.release();
   return NextResponse.json({ data: hasil });
 }
