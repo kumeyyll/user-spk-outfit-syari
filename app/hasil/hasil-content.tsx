@@ -111,7 +111,7 @@ export default function HasilContent() {
                   </p>
                   <p className="text-sm">
                     Ranking: <b>{i + 1}</b>
-                  </p>
+                  </p><br></br>
                   {/* TOMBOL LIHAT TOKO */}
           {o.link && (
             <a

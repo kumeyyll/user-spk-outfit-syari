@@ -94,6 +94,7 @@ export async function GET(request) {
       warna: o.warna,
       bahan: o.bahan,
       gaya: o.gaya,
+      link: o.link,
       skor: total,
       normalisasi,
       perhitungan,
