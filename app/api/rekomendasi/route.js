@@ -8,36 +8,46 @@ const supabase = createClient(
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
-  const warna = searchParams.get("warna");
-  const bahan = searchParams.get("bahan");
-  const gaya = searchParams.get("gaya");
+
+  const id_warna = searchParams.get("id_warna");
+  const id_bahan = searchParams.get("id_bahan");
+  const id_gaya = searchParams.get("id_gaya");
 
   const STORAGE_URL =
-  "https://fdazwileicpofehanhbd.supabase.co/storage/v1/object/public/outfit-images/";
+    "https://fdazwileicpofehanhbd.supabase.co/storage/v1/object/public/outfit-images/";
 
-  /* 1️⃣ FILTER OUTFIT */
+  /* 1️⃣ FILTER OUTFIT + JOIN */
   const { data: outfits } = await supabase
     .from("outfit")
-    .select("*")
-    .eq("warna", warna)
-    .eq("bahan", bahan)
-    .eq("gaya", gaya);
+    .select(`
+      id_outfit,
+      nama_outfit,
+      harga,
+      link,
+      gambar,
+      warna:id_warna (nama_warna),
+      bahan:id_bahan (nama_bahan),
+      gaya:id_gaya (nama_gaya)
+    `)
+    .eq("id_warna", id_warna)
+    .eq("id_bahan", id_bahan)
+    .eq("id_gaya", id_gaya);
 
   if (!outfits || outfits.length === 0) {
     return NextResponse.json({ data: [] });
   }
 
-  /* 2️⃣ AMBIL KRITERIA */
+  /* 2️⃣ KRITERIA */
   const { data: kriteria } = await supabase
     .from("kriteria")
     .select("*");
 
-  /* 3️⃣ AMBIL NILAI */
+  /* 3️⃣ NILAI */
   const { data: nilai } = await supabase
     .from("nilai_outfit")
     .select("*");
 
-  /* 4️⃣ HITUNG MAX & MIN */
+  /* 4️⃣ PEMBAGI */
   const pembagi = {};
   kriteria.forEach(k => {
     const values = nilai
@@ -57,7 +67,6 @@ export async function GET(request) {
   const hasil = outfits.map(o => {
     let total = 0;
     const normalisasi = {};
-    const perhitungan = {};
 
     kriteria.forEach(k => {
       const n = nilai.find(
@@ -82,8 +91,6 @@ export async function GET(request) {
       if (k.nama_kriteria === "Kualitas Bahan") key = "kualitas";
 
       normalisasi[key] = nilaiNormalisasi;
-      perhitungan[key] = nilaiNormalisasi * k.bobot;
-
       total += nilaiNormalisasi * k.bobot;
     });
 
@@ -91,20 +98,18 @@ export async function GET(request) {
       id_outfit: o.id_outfit,
       nama_outfit: o.nama_outfit,
       harga: o.harga,
-      warna: o.warna,
-      bahan: o.bahan,
-      gaya: o.gaya,
+      warna: o.warna?.nama_warna,
+      bahan: o.bahan?.nama_bahan,
+      gaya: o.gaya?.nama_gaya,
       link: o.link,
       skor: total,
       normalisasi,
-      perhitungan,
       gambar: o.gambar
-    ? `${STORAGE_URL}${o.gambar}`
-    : null,
+        ? `${STORAGE_URL}${o.gambar}`
+        : null,
     };
   });
 
-  /* 6️⃣ RANKING */
   hasil.sort((a, b) => b.skor - a.skor);
 
   return NextResponse.json({ data: hasil });

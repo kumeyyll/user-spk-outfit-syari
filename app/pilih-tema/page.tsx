@@ -1,12 +1,28 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles, Shirt } from "lucide-react";
+
+interface Warna {
+  id_warna: number;
+  nama_warna: string;
+}
+
+interface Bahan {
+  id_bahan: number;
+  nama_bahan: string;
+}
+
+interface Gaya {
+  id_gaya: number;
+  nama_gaya: string;
+}
+
 
 export default function PilihTemaPage() {
   const router = useRouter();
@@ -15,9 +31,32 @@ export default function PilihTemaPage() {
   const [bahan, setBahan] = useState("");
   const [gaya, setGaya] = useState("");
 
+  const [listWarna, setListWarna] = useState<Warna[]>([]);
+const [listBahan, setListBahan] = useState<Bahan[]>([]);
+const [listGaya, setListGaya] = useState<Gaya[]>([]);
+
+  useEffect(() => {
+    fetch("/api/warna")
+      .then((r) => r.json())
+      .then((d) => setListWarna(d.data || []));
+
+    fetch("/api/bahan")
+      .then((r) => r.json())
+      .then((d) => setListBahan(d.data || []));
+
+    fetch("/api/gaya")
+      .then((r) => r.json())
+      .then((d) => setListGaya(d.data || []));
+  }, []);
+
   const handleSubmit = () => {
+    if (!warna || !bahan || !gaya) {
+      alert("Silakan lengkapi semua pilihan");
+      return;
+    }
+
     router.push(
-      `/hasil?warna=${warna}&bahan=${bahan}&gaya=${gaya}`
+      `/hasil?id_warna=${warna}&id_bahan=${bahan}&id_gaya=${gaya}`
     );
   };
 
@@ -51,59 +90,55 @@ export default function PilihTemaPage() {
             </div>
 
             <div className="space-y-6">
-              {/* Warna */}
+
+              {/* WARNA */}
               <div>
                 <label className="text-sm font-medium">Warna Gamis</label>
                 <select
                   value={warna}
                   onChange={(e) => setWarna(e.target.value)}
-                  className="w-full mt-2 rounded-md border border-border bg-background px-3 py-2"
+                  className="w-full mt-2 rounded-md border px-3 py-2"
                 >
                   <option value="">Pilih warna</option>
-                  <option value="Hijau">Hijau</option>
-                  <option value="Hitam">Hitam</option>
-                  <option value="Pink">Pink</option>
-                  <option value="Orange">Orange</option>
-                  <option value="Coklat">Coklat</option>
-                  <option value="Maroon">Maroon</option>
-                  <option value="Putih">Putih</option>
-                  <option value="Navy">Navy</option>
-                  <option value="Biru">Biru</option>
-                  <option value="Abu-abu">Abu-abu</option>
-                  <option value="Ungu">Ungu</option>
-                  <option value="Cream">Cream</option>
+                  {listWarna.map((w) => (
+                    <option key={w.id_warna} value={w.id_warna}>
+                      {w.nama_warna}
+                    </option>
+                  ))}
                 </select>
               </div>
 
-              {/* Bahan */}
+              {/* BAHAN */}
               <div>
                 <label className="text-sm font-medium">Bahan</label>
                 <select
                   value={bahan}
                   onChange={(e) => setBahan(e.target.value)}
-                  className="w-full mt-2 rounded-md border border-border bg-background px-3 py-2"
+                  className="w-full mt-2 rounded-md border px-3 py-2"
                 >
                   <option value="">Pilih bahan</option>
-                  <option value="Katun">Katun</option>
-                  <option value="Rayon">Rayon</option>
-                  <option value="Silk">Silk</option>
-                  <option value="Ceruty">Ceruty</option>
-                  <option value="Polyester">Polyester</option>
+                  {listBahan.map((b) => (
+                    <option key={b.id_bahan} value={b.id_bahan}>
+                      {b.nama_bahan}
+                    </option>
+                  ))}
                 </select>
               </div>
 
-              {/* Gaya */}
+              {/* GAYA */}
               <div>
                 <label className="text-sm font-medium">Gaya / Aktivitas</label>
                 <select
                   value={gaya}
                   onChange={(e) => setGaya(e.target.value)}
-                  className="w-full mt-2 rounded-md border border-border bg-background px-3 py-2"
+                  className="w-full mt-2 rounded-md border px-3 py-2"
                 >
                   <option value="">Pilih gaya</option>
-                  <option value="Formal">Formal</option>
-                  <option value="Pesta">Pesta</option>
-                  <option value="Daily">Daily</option>
+                  {listGaya.map((g) => (
+                    <option key={g.id_gaya} value={g.id_gaya}>
+                      {g.nama_gaya}
+                    </option>
+                  ))}
                 </select>
               </div>
 
@@ -114,6 +149,7 @@ export default function PilihTemaPage() {
               >
                 Lihat Rekomendasi
               </Button>
+
             </div>
           </CardContent>
         </Card>

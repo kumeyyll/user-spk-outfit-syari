@@ -30,7 +30,7 @@ export default function HasilContent() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(
-        `/api/rekomendasi?warna=${params.get("warna")}&bahan=${params.get("bahan")}&gaya=${params.get("gaya")}`
+        `/api/rekomendasi?id_warna=${params.get("id_warna")}&id_bahan=${params.get("id_bahan")}&id_gaya=${params.get("id_gaya")}`
       );
       const json = await res.json();
       setData(json.data || []);
